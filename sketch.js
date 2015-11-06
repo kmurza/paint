@@ -5,17 +5,35 @@
 var drawingCanvas
 var colorPicker;
 var slider;
-var clearButton;
 var saveButton;
+var clearButton;
 var brushPicker;
 var brushType;
 
+
+
 var pumpkin;
+var skull;
+var cat;
+var ann;
+var ysabel;
 
 
 
 function preload(){
     pumpkin = loadImage("images/pumpkin.png");
+    imageMode(CENTER);
+
+    skull = loadImage("images/skull.png");
+    imageMode(CENTER);
+
+    cat = loadImage("images/cat.png");
+    imageMode(CENTER);
+
+    ann = loadImage("images/ann.png");
+    imageMode(CENTER);
+    
+    ysabel = loadImage("images/ysabel.png");
     imageMode(CENTER);
 }
 
@@ -38,12 +56,22 @@ function setup() {
     saveButton = select('.saveButton');
     saveButton.mouseClicked(saveFunction);
 
+    clearButton = select('.clearButton');
+    clearButton.mouseClicked(clearFunction);
+
+
+
     //set up the brush type
     brushPicker = createSelect();
     brushPicker.parent("brushType")
     brushPicker.option('paint brush');
     brushPicker.option('spray can');
     brushPicker.option('image');
+    brushPicker.option('skull');
+    brushPicker.option('cat');
+    brushPicker.option('ann');
+    brushPicker.option('ysabel');
+   
     brushPicker.changed(changeBrush);
     brushType = brushPicker.value();
 }
@@ -57,7 +85,16 @@ function draw() {
             standardStroke(); 
         } else if(brushType == "image"){
             drawImage(); 
+        } else if(brushType == "skull"){
+            drawSkull();
+        } else if(brushType == "cat"){
+            drawCat();
+        } else if(brushType == "ann"){
+            drawAnn();
+        } else if(brushType == "ysabel"){
+            drawYsabel();
         }
+
         
     } else {
         //Cursor options: ARROW, CROSS, HAND, MOVE, TEXT, or WAIT, or path for image
@@ -106,10 +143,25 @@ function drawImage(){
     //draw the image where the mouse is and set the size to the brush size
     image(pumpkin,mouseX,mouseY, slider.value(), slider.value());
 }
+function drawSkull(){
+    image(skull,mouseX,mouseY, slider.value(), slider.value());
+}
+function drawCat(){
+    image(cat,mouseX,mouseY, slider.value(), slider.value());
+}
+function drawAnn(){
+    image(ann,mouseX,mouseY, slider.value(), slider.value ());
+}
+function drawYsabel(){
+    image(ysabel,mouseX,mouseY, slider.value(), slider.value ());
+}
+  
 
 //--------------------------
 // Event Listeners
 //--------------------------
+
+
 
 function changeBrush(){
     brushType = brushPicker.value();
@@ -119,3 +171,9 @@ function changeBrush(){
 function saveFunction() {
     save(drawingCanvas, "myDrawing.jpg");
 }
+
+function clearFunction() {
+    clear(drawingCanvas, "drawingCanvas");
+}
+
+
